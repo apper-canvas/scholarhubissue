@@ -94,12 +94,48 @@ const generateNotifications = () => {
           priority: avgGrade < 40 ? 'high' : 'medium'
         });
       }
-    });
+});
     
     return notifications;
   };
 
-  return {
+  const getGradeDistribution = () => {
+    const distribution = {
+      'A (90-100%)': 0,
+      'B (80-89%)': 0,
+      'C (70-79%)': 0,
+      'D (60-69%)': 0,
+      'F (0-59%)': 0
+    };
+
+    grades.forEach(grade => {
+      const percentage = (grade.score / grade.maxScore) * 100;
+      if (percentage >= 90) distribution['A (90-100%)']++;
+      else if (percentage >= 80) distribution['B (80-89%)']++;
+      else if (percentage >= 70) distribution['C (70-79%)']++;
+      else if (percentage >= 60) distribution['D (60-69%)']++;
+      else distribution['F (0-59%)']++;
+    });
+
+    return distribution;
+  };
+
+  const getGradesByCategory = () => {
+    const categories = {};
+    grades.forEach(grade => {
+      if (!categories[grade.category]) {
+        categories[grade.category] = [];
+      }
+      categories[grade.category].push(grade);
+    });
+
+    return Object.entries(categories).map(([category, gradeList]) => ({
+      category,
+      average: gradeList.reduce((sum, g) => sum + (g.score / g.maxScore * 100), 0) / gradeList.length,
+      count: gradeList.length
+    }));
+  };
+return {
     grades,
     loading,
     error,
@@ -109,6 +145,8 @@ const generateNotifications = () => {
     deleteGrade,
     getGradesByStudent,
     getStudentGPA,
-    generateNotifications
+    generateNotifications,
+    getGradeDistribution,
+    getGradesByCategory
   };
 };

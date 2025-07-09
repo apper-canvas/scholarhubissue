@@ -91,10 +91,54 @@ const generateNotifications = () => {
       }
     });
     
-    return notifications;
+return notifications;
   };
 
-  return {
+  const getAttendanceTrends = () => {
+    const trends = {};
+    attendance.forEach(record => {
+      if (!trends[record.date]) {
+        trends[record.date] = { present: 0, absent: 0, late: 0, total: 0 };
+      }
+      trends[record.date][record.status]++;
+      trends[record.date].total++;
+    });
+
+    return Object.entries(trends)
+      .sort(([a], [b]) => new Date(a) - new Date(b))
+      .map(([date, data]) => ({
+        date,
+        attendanceRate: (data.present / data.total) * 100,
+        present: data.present,
+        absent: data.absent,
+        late: data.late,
+        total: data.total
+      }));
+  };
+
+  const getMonthlyAttendance = () => {
+    const monthly = {};
+    attendance.forEach(record => {
+      const month = record.date.substring(0, 7); // YYYY-MM
+      if (!monthly[month]) {
+        monthly[month] = { present: 0, absent: 0, late: 0, total: 0 };
+      }
+      monthly[month][record.status]++;
+      monthly[month].total++;
+    });
+
+    return Object.entries(monthly)
+      .sort(([a], [b]) => new Date(a) - new Date(b))
+      .map(([month, data]) => ({
+        month,
+        attendanceRate: (data.present / data.total) * 100,
+        present: data.present,
+        absent: data.absent,
+        late: data.late,
+        total: data.total
+      }));
+  };
+return {
     attendance,
     loading,
     error,
@@ -102,6 +146,8 @@ const generateNotifications = () => {
     markAttendance,
     getAttendanceByDate,
     getAttendanceByStudent,
-    generateNotifications
+    generateNotifications,
+    getAttendanceTrends,
+    getMonthlyAttendance
   };
 };

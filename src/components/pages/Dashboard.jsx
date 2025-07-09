@@ -3,6 +3,8 @@ import { motion } from "framer-motion";
 import StatCard from "@/components/molecules/StatCard";
 import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
+import GradeDistributionChart from "@/components/organisms/GradeDistributionChart";
+import AttendanceTrendChart from "@/components/organisms/AttendanceTrendChart";
 import { useStudents } from "@/hooks/useStudents";
 import { useAttendance } from "@/hooks/useAttendance";
 import { useGrades } from "@/hooks/useGrades";
@@ -131,15 +133,42 @@ const Dashboard = () => {
             trendValue={stats.attendanceRate > 90 ? "+2% this week" : "-1% this week"}
           />
         </motion.div>
-      </div>
+</div>
 
-      {/* Recent Activity */}
+      {/* Charts Section */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.5 }}
           className="bg-white rounded-lg shadow-card p-6"
+        >
+          <h2 className="text-xl font-semibold text-gray-900 mb-4 font-display">
+            Grade Distribution
+          </h2>
+          <GradeDistributionChart />
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="bg-white rounded-lg shadow-card p-6"
+        >
+          <h2 className="text-xl font-semibold text-gray-900 mb-4 font-display">
+            Attendance Trends
+          </h2>
+          <AttendanceTrendChart />
+        </motion.div>
+      </div>
+
+      {/* Recent Activity */}
+{/* Recent Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <motion.div
+initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.7 }}
         >
           <h2 className="text-xl font-semibold text-gray-900 mb-4 font-display">
             Recent Students
@@ -165,10 +194,10 @@ const Dashboard = () => {
           </div>
         </motion.div>
 
-        <motion.div
+<motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.6 }}
+          transition={{ delay: 0.8 }}
           className="bg-white rounded-lg shadow-card p-6"
         >
           <h2 className="text-xl font-semibold text-gray-900 mb-4 font-display">
