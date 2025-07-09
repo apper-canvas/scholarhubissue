@@ -29,7 +29,7 @@ const AttendanceGrid = ({ students, attendance, onMarkAttendance, selectedDate, 
   return (
     <div className="space-y-6">
       {/* Calendar Header */}
-      <div className="flex items-center justify-between">
+<div className="flex items-center justify-between">
         <div className="flex items-center space-x-4">
           <Button variant="outline" size="sm" onClick={handlePrevMonth}>
             <ApperIcon name="ChevronLeft" className="h-4 w-4" />
@@ -42,9 +42,15 @@ const AttendanceGrid = ({ students, attendance, onMarkAttendance, selectedDate, 
           </Button>
         </div>
         
-        <Button variant="primary" onClick={() => onDateChange(new Date())}>
-          Today
-        </Button>
+        <div className="flex items-center space-x-3">
+          <Button variant="outline" onClick={() => window.print()}>
+            <ApperIcon name="Printer" className="h-4 w-4 mr-2" />
+            Print Sheet
+          </Button>
+          <Button variant="primary" onClick={() => onDateChange(new Date())}>
+            Today
+          </Button>
+        </div>
       </div>
       
       {/* Calendar Grid */}

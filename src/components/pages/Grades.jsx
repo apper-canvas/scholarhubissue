@@ -1,14 +1,17 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { toast } from "react-toastify";
-import GradeTable from "@/components/organisms/GradeTable";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
-import Empty from "@/components/ui/Empty";
+import PrintPreviewModal from "@/components/organisms/PrintPreviewModal";
 import { useStudents } from "@/hooks/useStudents";
 import { useGrades } from "@/hooks/useGrades";
-
+import ApperIcon from "@/components/ApperIcon";
+import GradeTable from "@/components/organisms/GradeTable";
+import Button from "@/components/atoms/Button";
+import Empty from "@/components/ui/Empty";
+import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
 const Grades = () => {
+  const [isPrintModalOpen, setIsPrintModalOpen] = useState(false);
   const { students, loading: studentsLoading, error: studentsError } = useStudents();
   const { 
     grades, 
@@ -18,7 +21,6 @@ const Grades = () => {
     updateGrade,
     deleteGrade
   } = useGrades();
-
   const loading = studentsLoading || gradesLoading;
   const error = studentsError || gradesError;
 
@@ -75,7 +77,7 @@ const Grades = () => {
     );
   }
 
-  return (
+return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
@@ -85,6 +87,16 @@ const Grades = () => {
           <p className="text-gray-600 mt-1">
             Manage assignments, tests, and track student performance
           </p>
+        </div>
+        <div className="flex items-center space-x-3">
+          <Button 
+            variant="outline" 
+            onClick={() => setIsPrintModalOpen(true)}
+            disabled={students.length === 0}
+          >
+            <ApperIcon name="Printer" className="h-4 w-4 mr-2" />
+            Print Report Cards
+          </Button>
         </div>
       </div>
 
@@ -110,8 +122,17 @@ const Grades = () => {
             onUpdateGrade={handleUpdateGrade}
             onDeleteGrade={handleDeleteGrade}
           />
-        )}
+)}
       </motion.div>
+
+      <PrintPreviewModal
+        isOpen={isPrintModalOpen}
+        onClose={() => setIsPrintModalOpen(false)}
+        type="reportCard"
+        data={grades}
+        students={students}
+        title="Print Report Cards"
+      />
     </div>
   );
 };

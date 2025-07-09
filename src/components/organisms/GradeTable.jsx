@@ -85,11 +85,15 @@ const GradeTable = ({ grades, students, onAddGrade, onUpdateGrade, onDeleteGrade
     return "text-red-600";
   };
   
-  return (
+return (
     <div className="space-y-6">
       {/* Add Grade Button */}
       {!isAddingGrade && (
-        <div className="flex justify-end">
+        <div className="flex justify-between items-center">
+          <Button variant="outline" onClick={() => window.print()}>
+            <ApperIcon name="Printer" className="h-4 w-4 mr-2" />
+            Print Report Cards
+          </Button>
           <Button variant="primary" onClick={() => setIsAddingGrade(true)}>
             <ApperIcon name="Plus" className="h-4 w-4 mr-2" />
             Add Grade
