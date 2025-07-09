@@ -1,0 +1,137 @@
+[
+  {
+    "Id": 1,
+    "studentId": 1,
+    "assignmentName": "Math Quiz 1",
+    "category": "quiz",
+    "score": 95,
+    "maxScore": 100,
+    "date": "2024-01-10"
+  },
+  {
+    "Id": 2,
+    "studentId": 1,
+    "assignmentName": "English Essay",
+    "category": "assignment",
+    "score": 88,
+    "maxScore": 100,
+    "date": "2024-01-12"
+  },
+  {
+    "Id": 3,
+    "studentId": 2,
+    "assignmentName": "Math Quiz 1",
+    "category": "quiz",
+    "score": 92,
+    "maxScore": 100,
+    "date": "2024-01-10"
+  },
+  {
+    "Id": 4,
+    "studentId": 2,
+    "assignmentName": "Science Lab Report",
+    "category": "project",
+    "score": 96,
+    "maxScore": 100,
+    "date": "2024-01-11"
+  },
+  {
+    "Id": 5,
+    "studentId": 3,
+    "assignmentName": "History Test",
+    "category": "test",
+    "score": 85,
+    "maxScore": 100,
+    "date": "2024-01-13"
+  },
+  {
+    "Id": 6,
+    "studentId": 3,
+    "assignmentName": "Math Quiz 1",
+    "category": "quiz",
+    "score": 90,
+    "maxScore": 100,
+    "date": "2024-01-10"
+  },
+  {
+    "Id": 7,
+    "studentId": 4,
+    "assignmentName": "English Essay",
+    "category": "assignment",
+    "score": 78,
+    "maxScore": 100,
+    "date": "2024-01-12"
+  },
+  {
+    "Id": 8,
+    "studentId": 4,
+    "assignmentName": "Math Quiz 1",
+    "category": "quiz",
+    "score": 82,
+    "maxScore": 100,
+    "date": "2024-01-10"
+  },
+  {
+    "Id": 9,
+    "studentId": 5,
+    "assignmentName": "Science Lab Report",
+    "category": "project",
+    "score": 87,
+    "maxScore": 100,
+    "date": "2024-01-11"
+  },
+  {
+    "Id": 10,
+    "studentId": 5,
+    "assignmentName": "History Test",
+    "category": "test",
+    "score": 79,
+    "maxScore": 100,
+    "date": "2024-01-13"
+  },
+  {
+    "Id": 11,
+    "studentId": 6,
+    "assignmentName": "Math Quiz 1",
+    "category": "quiz",
+    "score": 75,
+    "maxScore": 100,
+    "date": "2024-01-10"
+  },
+  {
+    "Id": 12,
+    "studentId": 7,
+    "assignmentName": "English Essay",
+    "category": "assignment",
+    "score": 93,
+    "maxScore": 100,
+    "date": "2024-01-12"
+  },
+  {
+    "Id": 13,
+    "studentId": 8,
+    "assignmentName": "Math Quiz 1",
+    "category": "quiz",
+    "score": 68,
+    "maxScore": 100,
+    "date": "2024-01-10"
+  },
+  {
+    "Id": 14,
+    "studentId": 9,
+    "assignmentName": "Science Lab Report",
+    "category": "project",
+    "score": 72,
+    "maxScore": 100,
+    "date": "2024-01-11"
+  },
+  {
+    "Id": 15,
+    "studentId": 10,
+    "assignmentName": "History Test",
+    "category": "test",
+    "score": 89,
+    "maxScore": 100,
+    "date": "2024-01-13"
+  }
+]
