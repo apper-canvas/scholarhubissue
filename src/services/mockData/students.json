@@ -6,105 +6,115 @@
     "email": "emma.johnson@school.edu",
     "phone": "(555) 123-4567",
     "gradeLevel": 10,
+    "department": "Math",
     "enrollmentDate": "2023-08-15",
     "status": "active",
     "gpa": 3.8
   },
-  {
+{
     "Id": 2,
     "firstName": "Michael",
     "lastName": "Chen",
     "email": "michael.chen@school.edu",
     "phone": "(555) 234-5678",
     "gradeLevel": 11,
+    "department": "Science",
     "enrollmentDate": "2022-08-20",
     "status": "active",
     "gpa": 3.9
   },
-  {
+{
     "Id": 3,
     "firstName": "Sarah",
     "lastName": "Williams",
     "email": "sarah.williams@school.edu",
     "phone": "(555) 345-6789",
     "gradeLevel": 12,
+    "department": "English",
     "enrollmentDate": "2021-08-25",
     "status": "active",
     "gpa": 3.7
   },
-  {
+{
     "Id": 4,
     "firstName": "David",
     "lastName": "Martinez",
     "email": "david.martinez@school.edu",
     "phone": "(555) 456-7890",
     "gradeLevel": 9,
+    "department": "History",
     "enrollmentDate": "2024-08-10",
     "status": "active",
     "gpa": 3.5
   },
-  {
+{
     "Id": 5,
     "firstName": "Ashley",
     "lastName": "Brown",
     "email": "ashley.brown@school.edu",
     "phone": "(555) 567-8901",
     "gradeLevel": 11,
+    "department": "Arts",
     "enrollmentDate": "2022-08-18",
     "status": "active",
     "gpa": 3.6
   },
-  {
+{
     "Id": 6,
     "firstName": "James",
     "lastName": "Taylor",
     "email": "james.taylor@school.edu",
     "phone": "(555) 678-9012",
     "gradeLevel": 10,
+    "department": "Math",
     "enrollmentDate": "2023-08-22",
     "status": "active",
     "gpa": 3.4
   },
-  {
+{
     "Id": 7,
     "firstName": "Sophia",
     "lastName": "Davis",
     "email": "sophia.davis@school.edu",
     "phone": "(555) 789-0123",
     "gradeLevel": 12,
+    "department": "Science",
     "enrollmentDate": "2021-08-30",
     "status": "active",
     "gpa": 3.9
   },
-  {
+{
     "Id": 8,
     "firstName": "Ryan",
     "lastName": "Wilson",
     "email": "ryan.wilson@school.edu",
     "phone": "(555) 890-1234",
     "gradeLevel": 9,
+    "department": "English",
     "enrollmentDate": "2024-08-12",
     "status": "active",
     "gpa": 3.2
   },
-  {
+{
     "Id": 9,
     "firstName": "Olivia",
     "lastName": "Garcia",
     "email": "olivia.garcia@school.edu",
     "phone": "(555) 901-2345",
     "gradeLevel": 11,
+    "department": "History",
     "enrollmentDate": "2022-08-15",
     "status": "inactive",
     "gpa": 3.1
   },
-  {
+{
     "Id": 10,
     "firstName": "Alex",
     "lastName": "Thompson",
     "email": "alex.thompson@school.edu",
     "phone": "(555) 012-3456",
     "gradeLevel": 10,
+    "department": "Arts",
     "enrollmentDate": "2023-08-28",
     "status": "active",
     "gpa": 3.7

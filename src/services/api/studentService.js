@@ -52,7 +52,19 @@ export const studentService = {
     return students.filter(student =>
       student.firstName.toLowerCase().includes(searchTerm) ||
       student.lastName.toLowerCase().includes(searchTerm) ||
-      student.email.toLowerCase().includes(searchTerm)
+student.email.toLowerCase().includes(searchTerm)
     );
+  },
+
+  async getDepartments() {
+    await delay(200);
+    const departments = [...new Set(students.map(student => student.department))];
+    return departments.sort();
+  },
+
+  async filterByDepartment(department) {
+    await delay(250);
+    if (!department) return [...students];
+    return students.filter(student => student.department === department);
   }
 };

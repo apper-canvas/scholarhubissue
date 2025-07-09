@@ -1,26 +1,50 @@
-import { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import Chart from "react-apexcharts";
 import { useGrades } from "@/hooks/useGrades";
-import Loading from "@/components/ui/Loading";
-import Error from "@/components/ui/Error";
+import { useStudents } from "@/hooks/useStudents";
 import ApperIcon from "@/components/ApperIcon";
+import Error from "@/components/ui/Error";
+import Loading from "@/components/ui/Loading";
 
-const GradeDistributionChart = () => {
-  const { grades, loading, error, getGradeDistribution } = useGrades();
+const GradeDistributionChart = ({ department }) => {
+  const { grades, loading: gradesLoading, error: gradesError } = useGrades();
+  const { students, loading: studentsLoading, error: studentsError } = useStudents();
   const [chartData, setChartData] = useState(null);
 
+  const loading = gradesLoading || studentsLoading;
+  const error = gradesError || studentsError;
+
   useEffect(() => {
-    if (grades.length > 0) {
-      const distribution = getGradeDistribution();
-      const labels = Object.keys(distribution);
-      const series = Object.values(distribution);
+    if (grades.length > 0 && students.length > 0) {
+      const gradeRanges = { A: 0, B: 0, C: 0, D: 0, F: 0 };
+      
+      // Filter students by department if provided
+      const filteredStudents = department 
+        ? students.filter(s => s.department === department)
+        : students;
+      
+      const filteredStudentIds = filteredStudents.map(s => s.Id);
+      
+      grades.forEach(grade => {
+        if (filteredStudentIds.includes(grade.studentId)) {
+          const percentage = (grade.score / grade.maxScore) * 100;
+          if (percentage >= 90) gradeRanges.A++;
+          else if (percentage >= 80) gradeRanges.B++;
+          else if (percentage >= 70) gradeRanges.C++;
+          else if (percentage >= 60) gradeRanges.D++;
+          else gradeRanges.F++;
+        }
+      });
+
+      const labels = Object.keys(gradeRanges);
+      const series = Object.values(gradeRanges);
 
       setChartData({
         series,
         options: {
           chart: {
             type: 'donut',
-            height: 350,
             fontFamily: 'Inter, system-ui, sans-serif'
           },
           labels,
@@ -80,7 +104,7 @@ const GradeDistributionChart = () => {
         }
       });
     }
-  }, [grades, getGradeDistribution]);
+  }, [grades, students, department]);
 
   if (loading) {
     return (

@@ -5,34 +5,62 @@ import Loading from "@/components/ui/Loading";
 import Error from "@/components/ui/Error";
 import GradeDistributionChart from "@/components/organisms/GradeDistributionChart";
 import AttendanceTrendChart from "@/components/organisms/AttendanceTrendChart";
+import SelectField from "@/components/molecules/SelectField";
 import { useStudents } from "@/hooks/useStudents";
 import { useAttendance } from "@/hooks/useAttendance";
 import { useGrades } from "@/hooks/useGrades";
-
+import { studentService } from "@/services/api/studentService";
 const Dashboard = () => {
   const { students, loading: studentsLoading, error: studentsError } = useStudents();
   const { attendance, loading: attendanceLoading, error: attendanceError } = useAttendance();
   const { grades, loading: gradesLoading, error: gradesError } = useGrades();
   
+  const [selectedDepartment, setSelectedDepartment] = useState("");
+  const [departments, setDepartments] = useState([]);
+  const [filteredStudents, setFilteredStudents] = useState([]);
   const [stats, setStats] = useState({
     totalStudents: 0,
     activeStudents: 0,
     averageGPA: 0,
     attendanceRate: 0
   });
-
   const loading = studentsLoading || attendanceLoading || gradesLoading;
   const error = studentsError || attendanceError || gradesError;
 
+useEffect(() => {
+    const loadDepartments = async () => {
+      try {
+        const depts = await studentService.getDepartments();
+        setDepartments(depts);
+      } catch (error) {
+        console.error("Failed to load departments:", error);
+      }
+    };
+    loadDepartments();
+  }, []);
+
   useEffect(() => {
-    if (students.length > 0) {
-      const totalStudents = students.length;
-      const activeStudents = students.filter(s => s.status === "active").length;
-      const averageGPA = students.reduce((sum, s) => sum + s.gpa, 0) / totalStudents;
+    const filterStudents = async () => {
+      if (selectedDepartment) {
+        const filtered = await studentService.filterByDepartment(selectedDepartment);
+        setFilteredStudents(filtered);
+      } else {
+        setFilteredStudents(students);
+      }
+    };
+    filterStudents();
+  }, [selectedDepartment, students]);
+
+  useEffect(() => {
+    if (filteredStudents.length > 0) {
+      const totalStudents = filteredStudents.length;
+      const activeStudents = filteredStudents.filter(s => s.status === "active").length;
+      const averageGPA = filteredStudents.reduce((sum, s) => sum + s.gpa, 0) / totalStudents;
       
       // Calculate attendance rate for today
       const today = new Date().toISOString().split('T')[0];
-      const todayAttendance = attendance.filter(a => a.date === today);
+      const studentIds = filteredStudents.map(s => s.Id);
+      const todayAttendance = attendance.filter(a => a.date === today && studentIds.includes(a.studentId));
       const presentCount = todayAttendance.filter(a => a.status === "present").length;
       const attendanceRate = todayAttendance.length > 0 ? (presentCount / todayAttendance.length) * 100 : 0;
 
@@ -43,7 +71,7 @@ const Dashboard = () => {
         attendanceRate
       });
     }
-  }, [students, attendance]);
+  }, [filteredStudents, attendance]);
 
   if (loading) {
     return <Loading />;
@@ -53,7 +81,7 @@ const Dashboard = () => {
     return <Error message={error} />;
   }
 
-  return (
+return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <div>
@@ -73,6 +101,22 @@ const Dashboard = () => {
               day: "numeric" 
             })}
           </p>
+        </div>
+      </div>
+
+      {/* Department Filter */}
+      <div className="flex items-center justify-between">
+        <div className="w-64">
+          <SelectField
+            label="Filter by Department"
+            value={selectedDepartment}
+            onChange={(e) => setSelectedDepartment(e.target.value)}
+          >
+            <option value="">All Departments</option>
+            {departments.map(dept => (
+              <option key={dept} value={dept}>{dept}</option>
+            ))}
+          </SelectField>
         </div>
       </div>
 
@@ -146,7 +190,7 @@ const Dashboard = () => {
           <h2 className="text-xl font-semibold text-gray-900 mb-4 font-display">
             Grade Distribution
           </h2>
-          <GradeDistributionChart />
+<GradeDistributionChart department={selectedDepartment} />
         </motion.div>
 
         <motion.div
@@ -158,7 +202,7 @@ const Dashboard = () => {
           <h2 className="text-xl font-semibold text-gray-900 mb-4 font-display">
             Attendance Trends
           </h2>
-          <AttendanceTrendChart />
+<AttendanceTrendChart department={selectedDepartment} />
         </motion.div>
       </div>
 
@@ -174,7 +218,7 @@ initial={{ opacity: 0, y: 20 }}
             Recent Students
           </h2>
           <div className="space-y-3">
-            {students.slice(0, 5).map((student, index) => (
+{filteredStudents.slice(0, 5).map((student, index) => (
               <div key={student.Id} className="flex items-center space-x-3">
                 <div className="w-10 h-10 bg-gradient-to-br from-primary to-secondary rounded-full flex items-center justify-center">
                   <span className="text-white text-sm font-medium">
@@ -204,8 +248,8 @@ initial={{ opacity: 0, y: 20 }}
             Recent Grades
           </h2>
           <div className="space-y-3">
-            {grades.slice(0, 5).map((grade, index) => {
-              const student = students.find(s => s.Id === grade.studentId);
+{grades.slice(0, 5).map((grade, index) => {
+              const student = filteredStudents.find(s => s.Id === grade.studentId);
               const percentage = (grade.score / grade.maxScore) * 100;
               
               return (
