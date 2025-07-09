@@ -6,17 +6,19 @@ import Students from "@/components/pages/Students";
 import Attendance from "@/components/pages/Attendance";
 import Grades from "@/components/pages/Grades";
 import Reports from "@/components/pages/Reports";
+import Notifications from "@/components/pages/Notifications";
 
 function App() {
   return (
     <div className="min-h-screen bg-background">
       <Layout>
-        <Routes>
+<Routes>
           <Route path="/" element={<Dashboard />} />
           <Route path="/students" element={<Students />} />
           <Route path="/attendance" element={<Attendance />} />
           <Route path="/grades" element={<Grades />} />
           <Route path="/reports" element={<Reports />} />
+          <Route path="/notifications" element={<Notifications />} />
         </Routes>
       </Layout>
       <ToastContainer 

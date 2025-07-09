@@ -63,6 +63,37 @@ export const useAttendance = () => {
     loadAttendance();
   }, []);
 
+const generateNotifications = () => {
+    const notifications = [];
+    
+    // Get unique students from attendance data
+    const studentAttendance = {};
+    attendance.forEach(record => {
+      if (!studentAttendance[record.studentId]) {
+        studentAttendance[record.studentId] = { total: 0, present: 0 };
+      }
+      studentAttendance[record.studentId].total++;
+      if (record.status === 'present') {
+        studentAttendance[record.studentId].present++;
+      }
+    });
+    
+    // Generate notifications for low attendance
+    Object.entries(studentAttendance).forEach(([studentId, data]) => {
+      const attendanceRate = (data.present / data.total) * 100;
+      if (attendanceRate < 80) {
+        notifications.push({
+          type: 'attendance',
+          studentId: parseInt(studentId),
+          message: `Low attendance alert: ${attendanceRate.toFixed(1)}% attendance rate`,
+          priority: attendanceRate < 60 ? 'high' : 'medium'
+        });
+      }
+    });
+    
+    return notifications;
+  };
+
   return {
     attendance,
     loading,
@@ -70,6 +101,7 @@ export const useAttendance = () => {
     loadAttendance,
     markAttendance,
     getAttendanceByDate,
-    getAttendanceByStudent
+    getAttendanceByStudent,
+    generateNotifications
   };
 };

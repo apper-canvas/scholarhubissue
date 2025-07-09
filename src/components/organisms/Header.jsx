@@ -2,8 +2,11 @@ import { useState } from "react";
 import Button from "@/components/atoms/Button";
 import SearchBar from "@/components/molecules/SearchBar";
 import ApperIcon from "@/components/ApperIcon";
+import { useNotifications } from "@/hooks/useNotifications";
 
-const Header = ({ onMenuClick }) => {
+const Header = ({ onMenuClick, onNotificationClick }) => {
+  const { notifications } = useNotifications();
+  const unreadCount = notifications.filter(n => !n.isRead).length;
   const [searchTerm, setSearchTerm] = useState("");
   
   const handleSearch = (term) => {
@@ -38,8 +41,18 @@ const Header = ({ onMenuClick }) => {
               />
             </div>
             
-            <Button variant="ghost" size="sm">
+<Button 
+              variant="ghost" 
+              size="sm"
+              onClick={onNotificationClick}
+              className="relative"
+            >
               <ApperIcon name="Bell" className="h-5 w-5" />
+              {unreadCount > 0 && (
+                <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-4 w-4 flex items-center justify-center">
+                  {unreadCount > 9 ? '9+' : unreadCount}
+                </span>
+              )}
             </Button>
             
             <Button variant="ghost" size="sm">

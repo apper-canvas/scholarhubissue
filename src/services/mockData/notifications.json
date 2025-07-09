@@ -1,0 +1,57 @@
+[
+  {
+    "Id": 1,
+    "type": "attendance",
+    "title": "Low Attendance Alert",
+    "message": "Student John Doe has 65% attendance rate",
+    "studentId": 1,
+    "priority": "medium",
+    "isRead": false,
+    "createdAt": "2024-01-15T10:30:00Z",
+    "emailSent": true
+  },
+  {
+    "Id": 2,
+    "type": "grade",
+    "title": "Failing Grade Alert",
+    "message": "Student Jane Smith has 45% average score",
+    "studentId": 2,
+    "priority": "high",
+    "isRead": false,
+    "createdAt": "2024-01-15T09:15:00Z",
+    "emailSent": true
+  },
+  {
+    "Id": 3,
+    "type": "attendance",
+    "title": "Critical Attendance",
+    "message": "Student Mike Johnson has 40% attendance rate",
+    "studentId": 3,
+    "priority": "high",
+    "isRead": true,
+    "createdAt": "2024-01-14T14:20:00Z",
+    "emailSent": true
+  },
+  {
+    "Id": 4,
+    "type": "grade",
+    "title": "Grade Improvement Needed",
+    "message": "Student Sarah Wilson has 55% average score",
+    "studentId": 4,
+    "priority": "medium",
+    "isRead": false,
+    "createdAt": "2024-01-14T11:45:00Z",
+    "emailSent": false
+  },
+  {
+    "Id": 5,
+    "type": "system",
+    "title": "Weekly Report Available",
+    "message": "Your weekly attendance and grade report is ready",
+    "studentId": null,
+    "priority": "low",
+    "isRead": true,
+    "createdAt": "2024-01-13T08:00:00Z",
+    "emailSent": false
+  }
+]

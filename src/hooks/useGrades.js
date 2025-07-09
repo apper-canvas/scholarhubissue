@@ -72,6 +72,33 @@ export const useGrades = () => {
     loadGrades();
   }, []);
 
+const generateNotifications = () => {
+    const notifications = [];
+    
+    // Generate notifications for failing grades
+    const studentGrades = {};
+    grades.forEach(grade => {
+      if (!studentGrades[grade.studentId]) {
+        studentGrades[grade.studentId] = [];
+      }
+      studentGrades[grade.studentId].push(grade);
+    });
+    
+    Object.entries(studentGrades).forEach(([studentId, studentGradeList]) => {
+      const avgGrade = studentGradeList.reduce((sum, g) => sum + g.score, 0) / studentGradeList.length;
+      if (avgGrade < 60) {
+        notifications.push({
+          type: 'grade',
+          studentId: parseInt(studentId),
+          message: `Failing grade alert: ${avgGrade.toFixed(1)}% average score`,
+          priority: avgGrade < 40 ? 'high' : 'medium'
+        });
+      }
+    });
+    
+    return notifications;
+  };
+
   return {
     grades,
     loading,
@@ -81,6 +108,7 @@ export const useGrades = () => {
     updateGrade,
     deleteGrade,
     getGradesByStudent,
-    getStudentGPA
+    getStudentGPA,
+    generateNotifications
   };
 };
